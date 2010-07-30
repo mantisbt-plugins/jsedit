@@ -31,8 +31,8 @@ class jseditPlugin extends MantisPlugin {
 		$this->description	= 'Add jsQuery Wysiwyg for Mantis';
 		$this->version		= '0.1.0 early public';
 		$this->requires		= array(
-			'MantisCore' => '1.2.0',
-			'jQuery' => '1.3',
+			'MantisCore' => '1.2.2',
+			'jQuery' => '1.3.2',
 		);
 		$this->author		= 'Krasnov Kirill';
 		$this->contact		= 'krasnovforum@gmail.com';
@@ -46,6 +46,7 @@ class jseditPlugin extends MantisPlugin {
 	function hooks( ) {
 		$t_hooks = array(
 			'EVENT_LAYOUT_RESOURCES'  => 'print_head_js',
+			'EVENT_LAYOUT_BODY_END'   => 'print_end_body',
 		);
 		return array_merge( parent::hooks(), $t_hooks );
 	}
@@ -55,10 +56,22 @@ class jseditPlugin extends MantisPlugin {
 		if ( is_page_name('bug_report_page.php')||is_page_name('bug_update_page.php') ) {
 			$t_st .= "\t<script type=\"text/javascript\" src=\"" . plugin_file( 'jquery_wysiwyg.js' ) . "\"></script>\n";
 			$t_st .= "\t<link rel=\"stylesheet\" href=\"" . plugin_file( 'jquery_wysiwyg.css' ) . "\" />\n";
+//			$t_st .= "\t<script type=\"text/javascript\">\n";
+//			$t_st .= "\t\t$(function()\n";
+//			$t_st .= "\t\t{\n";
+//			$t_st .= "\t\t$('textarea').wysiwyg();\n";
+//			$t_st .= "\t\t});\n";
+//			$t_st .= "\t</script>\n";
+		}
+		return $t_st;
+	}
+	function print_end_body( ) {
+		$t_st = '';
+		if ( is_page_name('bug_report_page.php')||is_page_name('bug_update_page.php') ) {
 			$t_st .= "\t<script type=\"text/javascript\">\n";
 			$t_st .= "\t\t$(function()\n";
 			$t_st .= "\t\t{\n";
-			$t_st .= "\t\t$('textarea').wysiwyg();\n";
+			$t_st .= "\t\t\t$('textarea').wysiwyg();\n";
 			$t_st .= "\t\t});\n";
 			$t_st .= "\t</script>\n";
 		}
