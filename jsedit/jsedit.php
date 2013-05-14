@@ -69,10 +69,12 @@ class jseditPlugin extends MantisPlugin {
 		$t_st = '';
 		if ( is_page_name('bug_report_page.php')||is_page_name('bug_update_page.php') ) {
 			$t_st .= "\t<script type=\"text/javascript\">\n";
-			$t_st .= "\t\t$(function()\n";
-			$t_st .= "\t\t{\n";
-			$t_st .= "\t\t\t$('textarea').wysiwyg();\n";
-			$t_st .= "\t\t});\n";
+			$t_st .= "\t\t(function($) {\n";
+			$t_st .= "\t\t\t$(function()\n";
+			$t_st .= "\t\t\t{\n";
+			$t_st .= "\t\t\t\t$('textarea').wysiwyg();\n";
+			$t_st .= "\t\t\t});\n";
+			$t_st .= "\t\t})(jQuery);";
 			$t_st .= "\t</script>\n";
 		}
 		return $t_st;
